@@ -1,7 +1,8 @@
+import createTokenAndSaveCookies from "../jwt/AuthToken.js";
 import User from "../Modal/UserModal.js";
 import { v2 as cloudinary } from 'cloudinary';
 // import fileUpload from "express-fileupload";
-// import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs"
 
 
 export const signUp = async (req, res) => {
@@ -42,12 +43,12 @@ export const signUp = async (req, res) => {
     }
 
     console.log("Cloudinary Response:", cloudinaryResponse);
-// const hashPassword=await bcrypt.hash(password,10);
+const hashPassword=await bcrypt.hash(password,10);
     // Create a new user 
     const newUser = new User({
       yourname,
       email,
-      password, // You may want to hash the password before saving
+      password:hashPassword, // You may want to hash the password before saving
       number,
       education,
       role,
@@ -59,10 +60,87 @@ export const signUp = async (req, res) => {
 
     // Save the user to the database
     await newUser.save();
-    res.status(201).json({ message: "User created successfully", user: newUser });
+   const  token= await createTokenAndSaveCookies(newUser._id,res)
+   console.log(token);
+    res.status(201).json({ message: "User created successfully", user: newUser,register_token:token });
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
+
+// for login
+export const login=async(req,res)=>{
+const {email,password,role}=req.body;
+try {
+  if(!email||!password||!role){
+    return res.status(400).json({message:"please fill required fields"});
+
+  }
+  const user=await User.findOne({email}).select("+password");
+  if(!user.password){
+    return res.status(400).json({message:"user password is missing"});
+  }
+  const ismatch=await bcrypt.compare(password,user.password)
+if(!user||!ismatch){
+return res.status(400).json({message:"invalid email and password"})
+}
+if(user.role!==role){
+  res.status(403).json({message:`given role ${role} not found`})
+}
+const  token= await createTokenAndSaveCookies(user._id,res)
+console.log(token)
+res.status(201).json({ message: "User login successfully", user:{
+  _id:user._id,
+  yourname:user.yourname,
+  email:user.email,
+  education:user.education,
+  role:user.role 
+},login_token:token,
+ });
+ 
+
+
+
+} catch (error) {
+ return res.status(500).json({error:"Internal server error"}) 
+}
+};
+
+export const logout=(req,res)=>{
+try {
+  res.clearCookie("jwt")
+res.status(200).json({message:"user logout successfully"})
+} catch (error) {
+  res.status(500).json({message:"internal server error"})
+}
+}
+// to get my profile
+export const myProfile = (req, res) => {
+  try {
+    const myProfile = req.user; 
+    
+    if (!myProfile) {
+      return res.status(404).json({ message: 'User profile not found' });
+    }
+
+    return res.status(200).json({ message: 'Profile fetched successfully', profile: myProfile });
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const allAdmin=async(req,res)=>{
+try {
+const alladmin=await User.find({role:"admin"});
+return res.status(200).json({message:"all admin in database",admins:alladmin});
+} catch (error) {
+  return res.status(500).json({message:"internal server error"})
+}
+}
+
+
+
+
+
 

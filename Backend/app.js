@@ -4,14 +4,29 @@ import mongoose from "mongoose";
 import userRoute from "./Routes/userRoute.js"
 import fileUpload from "express-fileupload";
 import { v2 as cloudinary } from 'cloudinary';
+import  BlogRoute from "./Routes/BlogRoute.js" 
+import cookieParser from "cookie-parser";
+import cors from "cors"
+
+
 const app = express()
+
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 const MONGO_URL = process.env.MONGO_URL;
 
 
+
 app.use(express.json());
+app.use(cookieParser());
+
+
+// CORS Setup
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Set your frontend URL
+  credentials: true // Allow credentials (cookies) to be sent
+}));
 // file upload
 app.use(fileUpload({
     useTempFiles:true,
@@ -19,6 +34,8 @@ app.use(fileUpload({
 }))
 
 app.use("/api/user",userRoute)
+app.use("/api/Blog",BlogRoute)
+
 //CLOUDINARY
 cloudinary.config({ 
     cloud_name: process.env.CLOUD_NAME, 

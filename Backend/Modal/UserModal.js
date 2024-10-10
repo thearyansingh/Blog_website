@@ -12,7 +12,8 @@ const userSchema=mongoose.Schema({
        },
     number:{
         type:String,
-        required:true,
+        required:false,
+        unique:true
        },
        password:{
         type:String,
@@ -37,6 +38,9 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true,
         enum:["user","admin"],
+       },
+       token:{
+        type:String
        },
        createdAt:{
         type:Date,
