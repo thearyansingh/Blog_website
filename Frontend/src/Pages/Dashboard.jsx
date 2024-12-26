@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../Context/AuthProvider';
-import Sidebar from '../Dashboard/sidebar';
+import Sidebar from '../Dashboard/Sidebar';
 import Myprofile from '../Dashboard/MyProfile';
 import Myblog from '../Dashboard/Myblog';
 import Blogcreate from '../Dashboard/Blogcreate';
