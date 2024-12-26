@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 // CORS Setup
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'blog-website-q1xuvccsm-singharyan6999-gmailcoms-projects.vercel.app', // Set your frontend URL
+  origin: process.env.FRONTEND_URL || 'https://blog-website-ivory-theta.vercel.app/', // Set your frontend URL
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"] // Allow credentials (cookies) to be sent
 }));
