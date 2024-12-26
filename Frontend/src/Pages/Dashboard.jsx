@@ -4,7 +4,8 @@ import Sidebar from '../Dashboard/Sidebar';
 import Myprofile from '../Dashboard/MyProfile';
 import Myblog from '../Dashboard/Myblog';
 import Blogcreate from '../Dashboard/Blogcreate';
-import UpdateBlog from '../Dashboard/UpdateBlog'
+
+import Blogupdate from '../Dashboard/Blogupdate';
 
 const Dashboard = () => {
   const {profile,isAuthenticated}=useAuth();
@@ -19,7 +20,7 @@ const Dashboard = () => {
 <Blogcreate/>
      ):
      component === "update Blog"?(
-     <UpdateBlog/>
+     <Blogupdate/>
     ):
      (<Myblog/>)
     }

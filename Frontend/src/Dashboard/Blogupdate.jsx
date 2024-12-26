@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
-const UpdateBlog = () => {
+const Blogupdate = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
@@ -150,4 +150,4 @@ const UpdateBlog = () => {
   )
 }
 
-export default UpdateBlog;
+export default Blogupdate;
