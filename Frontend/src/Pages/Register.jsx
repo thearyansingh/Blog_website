@@ -44,7 +44,7 @@ const Register = () => {
     
 
         console.log(result);
-        navigate("/Login");
+        navigate("/login");
       } else {
         toast.error("Registration failed");
         console.error(result);
