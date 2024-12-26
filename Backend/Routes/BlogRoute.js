@@ -6,18 +6,9 @@ const router=express.Router();
 
 router.post('/create',isAuthenticated,isAdmin("admin"),createBlog);
 router.delete('/delete/:id',isAuthenticated,isAdmin("admin"),deleteBlog);
-router.get('/get-blog',isAuthenticated,allblog);
+router.get('/get-blog',allblog);
 router.get('/getBlog/:id',isAuthenticated,BlogById);
 router.get('/myBlog',isAuthenticated,isAdmin("admin"),MyBlog);
 router.put('/updateBlog/:id',isAuthenticated,isAdmin("admin"),UpdateBlog);
-
-
-
-
-
-
-
-
-
 
 export default router;

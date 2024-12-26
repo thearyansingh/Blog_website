@@ -1,10 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useAuth } from '../Context/AuthProvider';
+import Sidebar from '../Dashboard/sidebar';
+import Myprofile from '../Dashboard/MyProfile';
+import Myblog from '../Dashboard/Myblog';
+import Blogcreate from '../Dashboard/Blogcreate';
+import Updateblog from '../Dashboard/updateBlog';
 
 const Dashboard = () => {
+  const {profile,isAuthenticated}=useAuth();
+ const [component,setComponent]=useState("My blogs")
+  
   return (
-    <div>
-      
-    </div>
+    <>
+  <div>
+    <Sidebar component={component} setComponent={setComponent}/>
+    {component==="My Profile"?(<Myprofile/>):
+     component==="create Blog"?(
+<Blogcreate/>
+     ):
+     component === "update Blog"?(
+     <Updateblog/>
+    ):
+     (<Myblog/>)
+    }
+  </div>
+     
+    </>
   )
 }
 

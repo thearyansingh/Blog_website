@@ -1,38 +1,65 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 // Create the AuthContext
 export const AuthContext = createContext();
 
 // Create the AuthProvider component
 export const AuthProvider = ({ children }) => {
-  const [Blogs, setBlogs] = useState();
+  const [Blogs, setBlogs] = useState({ Blogs: [] });
+  const [profile, setProfile] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:4001/api/Blog/get-blog', {
-          method: 'GET',
-          credentials: 'include',  // This allows sending cookies
-        });
+        const token = Cookies.get("token"); // Get the token from cookies
+        if (token) {
+          const { data } = await axios.get("http://localhost:4001/api/user/my-profile", {
+            headers: {
+              "Authorization": `Bearer ${token}`, // Include the token in the header
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          // console.log(data);
+          setProfile(data);
+          setIsAuthenticated(true);
         }
-
-        const data = await response.json();  // Parse the JSON response
-        console.log(data);
-        setBlogs(data);  // Set the blogs state with the fetched data
       } catch (error) {
-        console.error('Error fetching blogs:', error);  // Log any errors
+        console.log(error);
+        setIsAuthenticated(false); // Set false if there's an error fetching profile
       }
     };
 
-    fetchBlogs();  // Fetch the blogs when the component mounts
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('http://localhost:4001/api/Blog/get-blog');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setBlogs(data);
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+      }
+    };
+
+    fetchBlogs();
+    fetchProfile(); // Fetch profile when the component mounts
   }, []);
 
-  // Provide the blogs data to the context
+
   return (
-    <AuthContext.Provider value={{ Blogs }}>
+    <AuthContext.Provider value={{
+      Blogs,
+      profile,
+      setProfile,
+      isAuthenticated,
+      setIsAuthenticated,
+    }}>
       {children}
     </AuthContext.Provider>
   );

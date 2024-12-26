@@ -28,7 +28,7 @@ export const createBlog = async (req, res) => {
         return res.status(400).json({ message: "title category about field required" });
       }
   const adminName=req.user.yourname;
-  const adminPhoto=req.user.photo;
+  const adminPhoto=req.user.photo.url;
   const createdBy=req.user._id;
       
   
@@ -102,18 +102,29 @@ try {
   
 
   // this function is use to get the seperate blog from the database
-  export const BlogById=async(req,res)=>{
+  export const BlogById = async (req, res) => {
     try {
-     const {id}=req.params;
-     if(!mongoose.Types.ObjectId(id)){
-      return   res.status(401).json({message:"invalid id"});
-     }
-      const getblog= await Blog.findById(id);
-      return  res.status(200).json({userBlog:getblog});
-    } catch (error) {
-      return res.status(500).json({message:"internal server error"});
-    }
+      const { id } = req.params;
+  
+      // Validate the ID format
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid ID format" });
       }
+  
+      // Fetch the blog
+      const blog = await Blog.findById(id);
+      if (!blog) {
+        return res.status(404).json({ message: "Blog not found" });
+      }
+  
+      // Return the blog
+      return res.status(200).json({ blog });
+    } catch (error) {
+      console.error("Error fetching blog:", error.message);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  };
+  
 
 
       export const MyBlog=async(req,res)=>{

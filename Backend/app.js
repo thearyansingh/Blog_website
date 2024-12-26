@@ -25,7 +25,8 @@ app.use(cookieParser());
 // CORS Setup
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Set your frontend URL
-  credentials: true // Allow credentials (cookies) to be sent
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"] // Allow credentials (cookies) to be sent
 }));
 // file upload
 app.use(fileUpload({
