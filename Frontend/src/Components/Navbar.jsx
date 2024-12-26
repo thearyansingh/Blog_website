@@ -20,7 +20,7 @@ const Navbar = () => {
     e.preventDefault();
     try {
       const { data } = await axios.get(
-        "http://localhost:4001/api/user/logout",
+        "https://blog-website-i4ex.onrender.com/api/user/logout",
         { withCredentials: true }
       );
     

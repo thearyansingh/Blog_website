@@ -10,7 +10,7 @@ const [blogs,setBlogs]=useState({});
         if (id) {
           const fetchBlogDetails = async () => {
             try {
-              const {data} = await axios.get(`http://localhost:4001/api/Blog/getBlog/${id}`, {
+              const {data} = await axios.get(`https://blog-website-i4ex.onrender.com/api/Blog/getBlog/${id}`, {
                 withCredentials: true
               });
               console.log(data)

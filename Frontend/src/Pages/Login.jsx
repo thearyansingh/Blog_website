@@ -21,7 +21,7 @@ const Login = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:4001/api/user/login", loginInfo, {
+      const response = await axios.post("https://blog-website-i4ex.onrender.com/api/user/login", loginInfo, {
         withCredentials: true
       });
 

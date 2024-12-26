@@ -21,7 +21,7 @@ const Blogcreate = () => {
     formData.append('BlogImage', data.BlogImage[0]);
 
     try {
-      const response = await fetch("http://localhost:4001/api/Blog/create", {
+      const response = await fetch("https://blog-website-i4ex.onrender.com/api/Blog/create", {
         method: "POST",
         credentials: 'include', // Include cookies in the request
         body: formData,

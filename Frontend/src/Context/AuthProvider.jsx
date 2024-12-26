@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const token = Cookies.get("token"); // Get the token from cookies
         if (token) {
-          const { data } = await axios.get("http://localhost:4001/api/user/my-profile", {
+          const { data } = await axios.get("https://blog-website-i4ex.onrender.com/api/user/my-profile", {
             headers: {
               "Authorization": `Bearer ${token}`, // Include the token in the header
               "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
 
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('http://localhost:4001/api/Blog/get-blog');
+        const response = await fetch('https://blog-website-i4ex.onrender.com/api/Blog/get-blog');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

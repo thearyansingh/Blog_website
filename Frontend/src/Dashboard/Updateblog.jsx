@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
-const Updateblog = () => {
+const UpdateBlog = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Updateblog = () => {
     if (id) {
       const fetchBlogDetails = async () => {
         try {
-          const response = await axios.get(`http://localhost:4001/api/Blog/getBlog/${id}`, {
+          const response = await axios.get(`https://blog-website-i4ex.onrender.com/api/Blog/getBlog/${id}`, {
             withCredentials: true
           });
           
@@ -57,7 +57,7 @@ const Updateblog = () => {
     try {
       // Update blog API call
       const response = await axios.put(
-        `http://localhost:4001/api/Blog/updateBlog/${id}`, 
+        `https://blog-website-i4ex.onrender.com/api/Blog/updateBlog/${id}`, 
         formData,
         {
           withCredentials: true,
@@ -150,4 +150,4 @@ const Updateblog = () => {
   )
 }
 
-export default Updateblog;
+export default UpdateBlog;

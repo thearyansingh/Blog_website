@@ -7,7 +7,7 @@ const Creators = () => {
   useEffect(() => {
     const fetchData=async()=>{
 try {
-  const res= await axios.get("http://localhost:4001/api/user/alladmin")
+  const res= await axios.get("https://blog-website-i4ex.onrender.com/api/user/alladmin")
   console.log(res.data);
   setAdmin(res.data);
 } catch (error) {

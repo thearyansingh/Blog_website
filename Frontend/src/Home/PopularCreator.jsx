@@ -8,7 +8,7 @@ const PopularCreator = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:4001/api/user/alladmin");
+        const res = await axios.get("https://blog-website-i4ex.onrender.com/api/user/alladmin");
       
         setAdminData(res.data);
       } catch (error) {

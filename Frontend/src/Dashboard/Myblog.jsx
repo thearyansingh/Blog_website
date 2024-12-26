@@ -11,7 +11,7 @@ const Myblog = () => {
     const fetchBlogs = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get('http://localhost:4001/api/Blog/myBlog', {
+        const response = await axios.get('https://blog-website-i4ex.onrender.com/api/Blog/myBlog', {
           withCredentials: true
         });
         console.log(response.data)
@@ -30,7 +30,7 @@ const Myblog = () => {
 
   const handleDelete = async (blogId) => {
     try {
-      await axios.delete(`http://localhost:4001/api/Blog/delete/${blogId}`, {
+      await axios.delete(`https://blog-website-i4ex.onrender.com/api/Blog/delete/${blogId}`, {
         withCredentials: true
       });
       // Remove the deleted blog from the state

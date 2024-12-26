@@ -28,7 +28,7 @@ const Register = () => {
     formData.append('photo', data.photo[0]); // Only access photo[0] if it exists
 
     try {
-      const response = await fetch("http://localhost:4001/api/user/signup", {
+      const response = await fetch("https://blog-website-i4ex.onrender.com/api/user/signup", {
         method: "POST",
         body: formData,
       });
