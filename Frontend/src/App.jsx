@@ -20,8 +20,9 @@ import Dashboard from './Pages/Dashboard';
 import MyProfile from './Dashboard/MyProfile';
 import Blogcreate from './Dashboard/Blogcreate';
 import Myblog from './Dashboard/Myblog';
-import Updateblog from './Dashboard/Updateblog';
+// import Updateblog from './Dashboard/Updateblog';
 import Blogs from './Components/Blogs';
+import Blogupdate from './Dashboard/Blogupdate';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -129,7 +130,7 @@ const MainContent = () => {
             path="/blog/update/:id"
             element={
               <ProtectedRoute>
-                <Updateblog />
+                <Blogupdate />
               </ProtectedRoute>
             }
           />
