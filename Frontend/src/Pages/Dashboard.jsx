@@ -4,7 +4,7 @@ import Sidebar from '../Dashboard/Sidebar';
 import Myprofile from '../Dashboard/MyProfile';
 import Myblog from '../Dashboard/Myblog';
 import Blogcreate from '../Dashboard/Blogcreate';
-import Updateblog from '../Dashboard/updateBlog';
+import Updateblog from '../Dashboard/Updateblog';
 
 const Dashboard = () => {
   const {profile,isAuthenticated}=useAuth();
